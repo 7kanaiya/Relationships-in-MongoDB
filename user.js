@@ -11,7 +11,8 @@ let authorSchema = new mongoose.Schema({
 
 let courseSchema = new mongoose.Schema({
     name:{type:String },
-    author:{type:mongoose.Schema.Types.ObjectId,ref:"authors"} // Adding reference Normalization Type 
+    //author:{type:mongoose.Schema.Types.ObjectId,ref:"authors"} // Adding reference Normalization Type 
+    author : {type: authorSchema} //Embedded type, De-normalization 
 });
 
 let authorModel = mongoose.model("authors",authorSchema);
@@ -36,8 +37,14 @@ async function createCourse(name,author){
     console.log(data);
 }
 
-createAuthor("Rudyard","www.rudy.com","mumbai");
-createCourse("BOOK","4343241fdfsfsfesfsf67"); //Object ID of who's reference needed to be added.
+//createAuthor("Rudyard","www.rudy.com","mumbai");
+//createCourse("BOOK","4343241fdfsfsfesfsf67"); //Object ID of who's reference needed to be added.
+createCourse("BOOK2", new authorModel({
+    name:"author",
+    website:"www.website.com",
+    address:"india"
+}))
+
 
 async function allCourseData(){
     let data = courseModel
