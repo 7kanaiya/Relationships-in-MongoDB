@@ -29,7 +29,7 @@ async function createAuthor(name,website,address){
 }
 
 async function createCourse(name,author){
-    let author = new courseModel({
+    let course = new courseModel({
         name:name,
         author:author,
     });
